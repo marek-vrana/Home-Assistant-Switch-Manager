@@ -37,6 +37,13 @@ async def create_event_listeners( hass: HomeAssistant, blueprint, mqtt_topic, _c
     def _handleEvent( event ):
         _callback( event.data.copy(), event.context )
 
+    @callback
+    def _handleEsphome( event ):
+        event_data = event.data.copy()
+        has_esphome_prefix = any(esphome_event == event.event_type for esphome_event in blueprint.esphome_events)
+        event_data["event_type"] = event.event_type if has_esphome_prefix else event.event_type.removeprefix("esphome.")
+        _callback( event_data, event.context )
+
     listeners = []
     if blueprint.is_mqtt:
         try:
@@ -45,6 +52,8 @@ async def create_event_listeners( hass: HomeAssistant, blueprint, mqtt_topic, _c
                 listeners.append( await mqtt_subscribe(hass, f"{mqtt_topic}/#", _handleMQTT) )
         except HomeAssistantError:
             LOGGER.error(f"Unable to handle switch as MQTT is not loaded")
+    elif blueprint.is_esphome:
+        listeners = [hass.bus.async_listen(esphome_event if esphome_event.startswith("esphome.") else f"esphome.{esphome_event}", _handleEsphome) for esphome_event in blueprint.esphome_events]
     else:
         listeners.append( hass.bus.async_listen(blueprint.event_type, _handleEvent) )
     return listeners
@@ -60,8 +69,10 @@ class Blueprint:
         self.service = config.get('service')
         self.event_type = config.get('event_type')
         self.is_mqtt = self.event_type == 'mqtt'
+        self.is_esphome = self.event_type == 'esphome'
         self.mqtt_topic_format = config.get('mqtt_topic_format', None)
         self.mqtt_sub_topics = config.get('mqtt_sub_topics', False)
+        self.esphome_events = config.get('esphome_events')
         self.identifier_key = config.get('identifier_key')
         self.info = config.get('info')
         self.conditions = convert_conditions( hass, config.get('conditions', []) )
@@ -83,6 +94,9 @@ class Blueprint:
                 listener()
 
         if self.is_mqtt and not self.mqtt_topic_format:
+            return None
+
+        if self.is_esphome and not self.esphome_events:
             return None
 
         @callback

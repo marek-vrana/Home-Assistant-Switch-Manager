@@ -47,6 +47,9 @@ BLUEPRINT_MQTT_SCHEMA = BLUEPRINT_SCHEMA.extend({
     vol.Optional('mqtt_topic_format'): cv.string,
     vol.Optional('mqtt_sub_topics', default=False): cv.boolean
 })
+BLUEPRINT_ESPHOME_SCHEMA = BLUEPRINT_EVENT_SCHEMA.extend({
+    vol.Optional('esphome_events'): vol.All(cv.ensure_list, [cv.string])
+})
 SWITCH_MANAGER_CONFIG_ACTION_SCHEMA = vol.Schema({
     vol.Required('mode', default=DEFAULT_SCRIPT_MODE): vol.In(SCRIPT_MODE_CHOICES),
     vol.Required('sequence', default=[]): cv.ensure_list # cv.SCRIPT_SCHEMA: This was causing problems and not parsing json format when action delay etc was used
