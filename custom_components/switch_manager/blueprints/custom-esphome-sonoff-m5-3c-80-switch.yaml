@@ -1,0 +1,87 @@
+name: Sonoff M5 3-channel switch (M5-3C-80)
+service: homeassistant
+event_type: esphome
+esphome_events:
+  - switch_click
+  - switch_double_click
+  - switch_hold
+identifier_key: device
+buttons:
+  - d: "M 11.313708,4.9497475
+H 165.28621
+V 497.75
+H 10.625
+C 8.592068,497.7721 7.4121422,497.29714 4.9620853,494.85016 2.5120283,492.40319 2.125,489.23116 2.125,487.375
+V 14.46875
+C 2.15625,11.4375 3.18264,9.6633516 4.8398763,7.9337607 6.4971126,6.2041698 8.344958,4.9809975 11.313708,4.9497475
+Z"
+    actions:
+      - title: press
+        conditions:
+          - key: event_type
+            value: switch_click
+          - key: button
+            value: left
+      - title: press 2x
+        conditions:
+          - key: event_type
+            value: switch_double_click
+          - key: button
+            value: left
+      - title: hold
+        conditions:
+          - key: event_type
+            value: switch_hold
+          - key: button
+            value: left
+  - d: "M 165.28621,4.9497475
+V 497.75072
+h 165.9
+V 4.9497475
+Z"
+    actions:
+      - title: press
+        conditions:
+          - key: event_type
+            value: switch_click
+          - key: button
+            value: middle
+      - title: press 2x
+        conditions:
+          - key: event_type
+            value: switch_double_click
+          - key: button
+            value: middle
+      - title: hold
+        conditions:
+          - key: event_type
+            value: switch_hold
+          - key: button
+            value: middle
+  - d: "M 485.15871,4.9497475
+H 331.18621
+V 497.75
+h 154.66121
+c 2.03293,0.0221 3.21286,-0.45286 5.66292,-2.89984 2.45005,-2.44697 2.83708,-5.619 2.83708,-7.47516
+V 14.468748
+c -0.0312,-3.03125 -1.05764,-4.8054005 -2.71487,-6.5349905 -1.65724,-1.72959 -3.50509,-2.95276 -6.47384,-2.98401
+z"
+    actions:
+      - title: press
+        conditions:
+          - key: event_type
+            value: switch_click
+          - key: button
+            value: right
+      - title: press 2x
+        conditions:
+          - key: event_type
+            value: switch_double_click
+          - key: button
+            value: right
+      - title: hold
+        conditions:
+          - key: event_type
+            value: switch_hold
+          - key: button
+            value: right
