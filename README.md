@@ -4,8 +4,16 @@
 
 [![switch_manager_release](https://badgen.net/github/release/Sian-Lee-SA/Home-Assistant-Switch-Manager/stable?scale=1.3&color=41bdf5)](https://github.com/Sian-Lee-SA/Home-Assistant-Switch-Manager/stable) [![switch_manager_stars](https://badgen.net/github/stars/Sian-Lee-SA/Home-Assistant-Switch-Manager?scale=1.3&color=41bdf5)](https://github.com/Sian-Lee-SA/Home-Assistant-Switch-Manager/stargazers) [![switch_manager_contributors](https://badgen.net/github/contributors/Sian-Lee-SA/Home-Assistant-Switch-Manager?scale=1.3&color=41bdf5)](https://github.com/Sian-Lee-SA/Home-Assistant-Switch-Manager)
 
-## About
+## About this branched repository
+My [PR](https://github.com/Sian-Lee-SA/Home-Assistant-Switch-Manager/issues/355) was closed as no planned. Whoever wants to configure ESPHome devices, you're on the right place.
 
+This is an unofficial support for **ESPHome devices** in Switch manager.
+Find the available ESPHome templates in `esphome_switches` [branch](/marek-vrana/Home-Assistant-Switch-Manager/tree/esphome_switches) - currently only various sonoff m5 switches with images.
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20the%20Project-FFDD00?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/marekvranax)
+
+
+## About
 Switch manager is a centralised component to handle button pushes for your wireless switches. This includes anything passed through the event bus or MQTT. The component relies on switch blueprints which is easily made to allow GUI configuration of your switches and their button pushes. This helps remove clutter from the automations view as they will be handled independently by this component.
 
 > [!WARNING]
